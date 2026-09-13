@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="Product Web Server">
+
+    <featureManager>
+        <feature>servlet-3.1</feature>
+        <feature>jsp-2.3</feature>
+        <feature>ejbLite-3.2</feature>
+        <feature>jdbc-4.1</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint"
+                  host="*"
+                  httpPort="9080"
+                  httpsPort="9443"/>
+
+    <library id="H2Lib">
+        <fileset dir="${server.config.dir}/lib/global" includes="h2*.jar"/>
+    </library>
+
+    <dataSource id="PolicyDS" jndiName="jdbc/policyDS">
+        <jdbcDriver libraryRef="H2Lib"/>
+        <properties URL="jdbc:h2:tcp://localhost:9092/./data/policydb"
+                    user="sa"
+                    password=""/>
+    </dataSource>
+
+    <webApplication location="product-web.war" contextRoot="/product-web"/>
+
+</server>
